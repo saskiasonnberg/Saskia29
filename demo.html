@@ -20,7 +20,7 @@
         var center = map.getCenter();
 
         if (navigator.geolocation) {
-          navigator.geolocation.watchPosition(showPosition, showError);
+          navigator.geolocation.watchPosition(showPosition, showError, {enableHighAccuracy:true});
         } 
 
         var pin = new Microsoft.Maps.Pushpin(center, {
@@ -28,6 +28,7 @@
         });
         //Create custom Pushpin
         function showPosition(position) {
+            console.log("updated location");
           var pinLocation = new Microsoft.Maps.Location(position.coords.latitude, position.coords.longitude);
           pin.setLocation(pinLocation);
         }
