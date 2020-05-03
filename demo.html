@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+    <script type="text/javascript">
+      function GetMap() {
+        var map = new Microsoft.Maps.Map("#myMap", {
+          credentials: "Ar_rVj6HdUipb7QCPIwyITrZwU-bdKNI5n5nNC7MREbs1Xrq2TPqQ7jKJKA7BXsK",
+          center: new Microsoft.Maps.Location(59.43279, 24.76089),
+        });
+
+        var center = map.getCenter();
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } 
+
+        var pin = new Microsoft.Maps.Pushpin(center, {
+          title: "Rapunzeli torn",
+        });
+        //Create custom Pushpin
+        function showPosition(position) {
+          var pinLocation = new Microsoft.Maps.Location(position.coords.latitude, position.coords.longitude);
+          pin.setLocation(pinLocation);
+        }
+
+        function showError(error) {
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+            alert("Pliis, lülita GPS sisse");
+              break;
+          }
+        }
+
+        //Add the pushpin to the map
+        map.entities.push(pin);
+      }
+    </script>
+    <script type="text/javascript" src="http://www.bing.com/api/maps/mapcontrol?callback=GetMap" async defer></script>
+  </head>
+  <body>
+    <div id="myMap" style="position: relative; width: 100%; height: 100%;"></div>
+  </body>
+</html>
